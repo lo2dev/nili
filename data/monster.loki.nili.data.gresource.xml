@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/monster/loki/nili">
+  </gresource>
+  <gresource prefix="/monster/loki/nili/icons/scalable/actions">
+    <file alias="loupe-symbolic.svg" preprocess="xml-stripblanks">icons/loupe-symbolic.svg</file>
+  </gresource>
+</gresources>

@@ -1,0 +1,118 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $NiliWindow : Adw.ApplicationWindow {
+  title: _("nili");
+  width-request: 360;
+  height-request: 294;
+  default-width: 400;
+  default-height: 650;
+
+  Adw.Breakpoint {
+    condition ("max-width: 500sp")
+
+    setters {
+      header_bar.title-widget: null;
+      switcher_bar.reveal: true;
+    }
+  }
+
+  content: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar header_bar {
+      title-widget: Adw.ViewSwitcher switcher_title {
+        stack: stack;
+        policy: wide;
+      };
+
+      styles ["flat"]
+
+      [start]
+      ToggleButton button_search {
+        icon-name: "system-search-symbolic";
+      }
+
+      [end]
+      MenuButton {
+        primary: true;
+        icon-name: "open-menu-symbolic";
+        tooltip-text: _("Menu");
+        menu-model: primary_menu;
+      }
+    }
+
+    [top]
+    SearchBar searchbar {
+      //key-capture-widget: container;
+      styles ["inline"]
+
+      SearchEntry searchentry {
+        search-delay: 100;
+        placeholder-text: _("Search for words");
+      }
+    }
+
+    content: Adw.ViewStack stack {
+      vexpand: true;
+
+      Adw.ViewStackPage dictionary_page {
+        name: "dictionary_page";
+        title: _("Dictionary");
+        icon-name: "dictionary-symbolic";
+        use-underline: true;
+
+        child: ScrolledWindow {
+          child: Box {
+            margin-start: 20;
+            margin-end: 20;
+            margin-top: 20;
+            margin-bottom: 20;
+
+            Adw.Clamp {
+              maximum-size: 600;
+
+              ListBox words_list {
+                selection-mode: none;
+                hexpand: true;
+                valign: center;
+
+                styles [
+                  "boxed-list",
+                ]
+              }
+            }
+          };
+        };
+      }
+
+      Adw.ViewStackPage compounds_page {
+        name: "compounds_page";
+        title: _("Compounds");
+        icon-name: "open-book-symbolic";
+        use-underline: true;
+
+        child: Adw.StatusPage {
+          title: bind compounds_page.title;
+          icon-name: bind compounds_page.icon-name;
+
+          child: Box {
+            orientation: vertical;
+            valign: center;
+          };
+        };
+      }
+    };
+
+    [bottom]
+    Adw.ViewSwitcherBar switcher_bar {
+      stack: stack;
+    }
+  };
+}
+
+menu primary_menu {
+  section {
+    item (_("_Keyboard Shortcuts"), "win.show-help-overlay")
+    item (_("_About Nili"), "app.about")
+  }
+}

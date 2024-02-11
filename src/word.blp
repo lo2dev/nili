@@ -1,0 +1,102 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $WordWindow : Adw.Window {
+  width-request: 360;
+  height-request: 294;
+  default-width: 350;
+  default-height: 480;
+  modal: true;
+  title: _("Word");
+
+  content: Adw.ToastOverlay toast_overlay {
+    child: Adw.ToolbarView {
+      [top]
+      Adw.HeaderBar {}
+
+      content: ScrolledWindow {
+        Adw.Clamp {
+          maximum-size: 500;
+
+          Box {
+            orientation: vertical;
+            margin-top: 10;
+            margin-bottom: 20;
+            margin-start: 20;
+            margin-end: 20;
+
+            Label word_title {
+              halign: center;
+              selectable: true;
+
+              styles [
+                "title-1"
+              ]
+            }
+
+            ListBox word_info {
+              margin-top: 20;
+              selection-mode: none;
+
+              styles [
+                "boxed-list"
+              ]
+
+              Adw.ActionRow word_definition {
+                title: _("Definition");
+                subtitle-selectable: true;
+
+                [suffix]
+                Button copy_definition_button {
+                  label: _("Copy Definition");
+                  tooltip-text: "Copy Definition";
+                  icon-name: "edit-copy-symbolic";
+                  valign: center;
+                  has-frame: false;
+                }
+
+                styles [
+                  "property"
+                ]
+              }
+
+              Adw.ActionRow word_book {
+                title: _("Book");
+
+                styles [
+                  "property"
+                ]
+              }
+
+              Adw.ActionRow word_usage {
+                title: _("Usage");
+
+                styles [
+                  "property"
+                ]
+              }
+
+              Adw.ActionRow word_origin {
+                title: _("Origin");
+                subtitle-selectable: true;
+
+                styles [
+                  "property"
+                ]
+              }
+
+              Adw.ActionRow word_commentary {
+                title: _("Commentary");
+                subtitle-selectable: true;
+
+                styles [
+                  "property"
+                ]
+              }
+            }
+          }
+        }
+      };
+    };
+  };
+}

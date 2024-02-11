@@ -1,0 +1,6 @@
+data/monster.loki.nili.desktop.in
+data/monster.loki.nili.metainfo.xml.in
+data/monster.loki.nili.gschema.xml
+src/main.js
+src/window.js
+src/window.ui
